@@ -1,9 +1,9 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 """
-Created on %(date)s
+Created on Fri Mar 12 20:08:50 2021
 
-@author: %(username)
+@author: andrea
 Twitter: @andreaquezadaa
 """
 
@@ -33,4 +33,4 @@ else:
     print(mes, round(total_pagado, 4), round(saldo, 4))
     
           
-print('Total pagado', round(total_pagado, 2), 'en', mes, 'meses')
+print(f'Total pagado: {round(total_pagado, 2)} en {mes} meses') 
