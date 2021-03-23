@@ -9,6 +9,8 @@ Twitter: @andreaquezadaa
 
 cadena = 'Geringoso'
 capadepenapa = ''
+
+
 for c in cadena:
     if c == 'a':
         capadepenapa = capadepenapa + 'apa'       
@@ -23,3 +25,23 @@ for c in cadena:
     else:
         capadepenapa = capadepenapa + c
 print(capadepenapa)
+
+#%% Compañere 1
+cadena = sys.argv[1]
+capadepanapa = ''
+
+for c in cadena:
+    capadepanapa = capadepanapa + c
+    if c.lower() in "aeiou":
+        if c == 'a':
+            capadepanapa = capadepanapa + 'pa'
+        elif c == 'e':
+            capadepanapa = capadepanapa + 'pe'
+        elif c == 'i':
+            capadepanapa = capadepanapa + 'pi'
+        elif c == 'o':
+            capadepanapa = capadepanapa + 'po'
+        else:
+            capadepanapa = capadepanapa + 'pu'
+        
+print(capadepanapa)

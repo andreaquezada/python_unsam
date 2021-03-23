@@ -8,7 +8,7 @@ Created on Sat Mar 13 00:39:14 2021
 Twitter: @andreaquezadaa
 """
 
-frase = 'todos somos programadores'
+frase = '¿Cómo transmitir a los otros el infitino Aleph?'
 palabras = frase.split()
 nueva_frase = []
 
@@ -23,3 +23,6 @@ for palabra in palabras:
     
 frase_t = ' '.join(nueva_frase)
 print(frase_t)
+
+#%%
+
