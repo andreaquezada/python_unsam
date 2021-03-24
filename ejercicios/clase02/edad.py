@@ -7,7 +7,7 @@ Created on Tue Mar 23 10:51:11 2021
 
 Twitter: @andreaquezadaa
 """
-
+#%%
 def preguntar_edad(nombre):
     edad = int(input(f'ingresá tu edad {nombre}: '))
     if edad<0:
