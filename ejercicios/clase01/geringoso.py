@@ -26,7 +26,7 @@ for c in cadena:
         capadepenapa = capadepenapa + c
 print(capadepenapa)
 
-#%% Grimsom
+#%% Grimsom y otres ideas
 
 cadena = 'murciélago'
 capadepenapa = ''
