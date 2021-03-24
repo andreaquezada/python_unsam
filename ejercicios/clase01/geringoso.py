@@ -7,7 +7,7 @@ Created on Fri Mar 12 20:08:50 2021
 Twitter: @andreaquezadaa
 """
 
-cadena = 'Geringoso'
+cadena = 'Ucrania'
 capadepenapa = ''
 
 
@@ -26,8 +26,20 @@ for c in cadena:
         capadepenapa = capadepenapa + c
 print(capadepenapa)
 
+#%% Grimsom
+
+cadena = 'murciélago'
+capadepenapa = ''
+
+for c in cadena:
+    if c.lower() in 'aeiouáéíóú':
+        capadepenapa += c + 'p' + c
+    else:
+        capadepenapa += c
+print(capadepenapa)
 #%% Compañere 1
-cadena = sys.argv[1]
+import sys
+cadena = 'Ucrania' #sys.argv[1]
 capadepanapa = ''
 
 for c in cadena:
@@ -45,3 +57,12 @@ for c in cadena:
             capadepanapa = capadepanapa + 'pu'
         
 print(capadepanapa)
+#%% Compañere 2
+cadena = 'murciélago'
+capadepenapa = ''
+for c in cadena:
+    vocales = ['a','e','i','o','u']
+    capadepenapa = capadepenapa + c
+    if c in vocales:
+        capadepenapa = capadepenapa + 'p' + c
+print(capadepenapa)

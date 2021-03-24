@@ -13,10 +13,13 @@ palabras = frase.split()
 nueva_frase = []
 
 for palabra in palabras:
-    if  palabra[-1] == 'o':
-        nueva_palabra = palabra[:-1]+palabra[-1].replace('o','e')    
-    elif palabra[-2] == 'o':
-        nueva_palabra = palabra[:-2]+palabra[-2].replace('o','e')+palabra[-1]
+    if len(palabra)>= 2:
+        if  palabra[-1] == 'o':
+            nueva_palabra = palabra[:-1]+palabra[-1].replace('o','e')    
+        elif palabra[-2] == 'o':
+            nueva_palabra = palabra[:-2]+palabra[-2].replace('o','e')+palabra[-1]
+        else:
+            nueva_palabra = palabra
     else:
         nueva_palabra = palabra
     nueva_frase.append(nueva_palabra)
