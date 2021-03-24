@@ -13,6 +13,17 @@ with open('camion.csv', 'rt') as f:
     headers = next(f)
     for line in f:
         row = line.split(',')
-        costo = costo + float(row[1])*float(row[2])
+        costo += float(row[1])*float(row[2])
         
 print('Costo total', round(costo, 2))
+
+#%%
+def costo_camion(nombre_archivo):
+    costo = 0
+    with open(nombre_archivo, 'rt') as f:
+        headers = next(f)
+        for line in f:
+            row = line.split(',')
+            costo += float(row[1])*float(row[2])
+        return costo
+          
