@@ -26,18 +26,7 @@ def costo_camion(nombre_archivo):
 import csv
 
 def leer_camion(nombre_archivo):
-    camion = []
-    with open(nombre_archivo, 'rt') as f:
-        rows = csv.reader(f)
-        headers = next(rows)
-        for row in rows:
-            lote = (row[0], int(row[1]), float(row[2]))
-            camion.append(lote)
-    return camion
-#%%
-import csv
-
-def leer_camion(nombre_archivo):
+    '''Guarda los datos del archivo en una lista de diccionarios.'''
     camion = []
     with open(nombre_archivo, 'rt') as f:
         rows = csv.reader(f)
@@ -47,24 +36,80 @@ def leer_camion(nombre_archivo):
             camion.append(lote)
     return camion
 
-#%%
+#%% Balance del negocio
+from collections import Counter
 import csv
+import pprint as pp
+from tabulate import tabulate
+import numpy as np
+
+def leer_camion(nombre_archivo):
+    '''Guarda los datos del archivo en una lista de tuplas. Cada tupla contiene los datos de cada fila'''
+    camion = []
+    with open(nombre_archivo, 'rt') as f:
+        rows = csv.reader(f)
+        headers = next(rows)
+        for row in rows:
+            lote = (row[0], int(row[1]), float(row[2]))
+            camion.append(lote)
+    return camion
 
 def leer_precio(nombre_archivo):    
-    fruta_precios = {}
+    ''' Crea un diccionario de precios con los nombres de las frutas como keys.'''
+    precio_venta = {}
     with open(nombre_archivo, 'rt') as f:
         rows = csv.reader(f)
         headers = next(rows)
         for row in rows:
             try:
-                fruta_precios[row[0]] = row[1].strip()
+                precio_venta[row[0]] = float(row[1].strip())
             except IndexError:
                 pass
-    return fruta_precios
-#%% Balance
-total = 0.0
-for s in camion:
-    total += s['cajones']*s['precio']
+    return precio_venta
 
-print(total)
+camion = leer_camion('camion.csv')
+precio_venta = leer_precio('precios.csv')
 
+total_cajones = Counter()
+total_precio = Counter()     
+for nombre, n_cajones, precio in camion:
+    total_cajones[nombre] += n_cajones
+    total_precio[nombre] += n_cajones*precio
+
+ganancias = []
+for element in precio_venta.keys():
+    try:
+        precio_compra = total_precio[element]/total_cajones[element]
+        balance = precio_venta[element] - precio_compra
+        ganancia_total = balance * total_cajones[element]
+        ganancias.append([element, total_cajones[element], precio_compra, precio_venta[element], balance, ganancia_total])
+    except ZeroDivisionError:
+        pass
+print(tabulate(ganancias, headers=['Fruta', 'Cajones', 'Precio de compra', 'Precio de venta', 'Ganancia neta']))
+      
+
+
+    
+ 
+
+#%%
+
+
+def precio_total(nombre_archivo):
+    ''' Computa el gasto que se hizo en cada fruta multiplicando los cajones por el costo de cada uno'''
+    camion = []
+    with open(nombre_archivo, 'rt') as f:
+        rows = csv.reader(f)
+        headers = next(rows)
+        for row in rows:
+            ncajones = int(row[1])
+            precio = float(row[2])
+            total = (row[0], ncajones, ncajones * precio)
+            camion.append(total)
+    return camion
+
+camion = precio_total('camion.csv')
+
+total_cajones = Counter()            
+for nombre, n_cajones, precio in camion:
+    total_cajones[nombre] += n_cajones
