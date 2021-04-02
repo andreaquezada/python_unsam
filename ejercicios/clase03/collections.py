@@ -78,3 +78,13 @@ print(total_cajones2)
 
 todos_camiones = total_cajones + total_cajones2
 print(todos_camiones)
+
+#%% Formato
+
+s = {
+    'nombre': 'Naranja',
+    'cajones': 100,
+    'precio': 91.1
+}
+
+

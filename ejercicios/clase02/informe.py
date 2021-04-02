@@ -85,8 +85,8 @@ def hacer_informe(camion, precio_venta):
             pass
     return informe
     
-camion = leer_camion('../Data/camion.csv')
-precio_venta = leer_precio('../Data/precios.csv')
+camion = leer_camion('Data/camion.csv')
+precio_venta = leer_precio('Data/precios.csv')
 informe = hacer_informe(camion, precio_venta)
 #print(tabulate(informe, headers=['Fruta', 'Cajones', 'Precio de compra', 'Precio de venta', 'Cambio', 'Ganancia neta']))
 
