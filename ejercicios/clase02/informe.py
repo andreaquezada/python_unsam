@@ -50,7 +50,8 @@ def leer_camion(nombre_archivo):
         rows = csv.reader(f)
         headers = next(rows)
         for row in rows:
-            lote = (row[0], int(row[1]), float(row[2]))
+            record = dict(zip(headers, row))
+            lote = (record['nombre'], int(record['cajones']), float(record['precio']))
             camion.append(lote)
     return camion
 
@@ -67,49 +68,36 @@ def leer_precio(nombre_archivo):
                 pass
     return precio_venta
 
-camion = leer_camion('camion.csv')
-precio_venta = leer_precio('precios.csv')
-
-total_cajones = Counter()
-total_precio = Counter()     
-for nombre, n_cajones, precio in camion:
-    total_cajones[nombre] += n_cajones
-    total_precio[nombre] += n_cajones*precio
-
-ganancias = []
-for element in precio_venta.keys():
-    try:
-        precio_compra = total_precio[element]/total_cajones[element]
-        balance = precio_venta[element] - precio_compra
-        ganancia_total = balance * total_cajones[element]
-        ganancias.append([element, total_cajones[element], precio_compra, precio_venta[element], balance, ganancia_total])
-    except ZeroDivisionError:
-        pass
-print(tabulate(ganancias, headers=['Fruta', 'Cajones', 'Precio de compra', 'Precio de venta', 'Ganancia neta']))
-      
-
-
+def hacer_informe(camion, precio_venta):
+    total_cajones = Counter()
+    total_precio = Counter()     
+    for nombre, n_cajones, precio in camion:
+        total_cajones[nombre] += n_cajones
+        total_precio[nombre] += n_cajones*precio
+    informe = []
+    for element in precio_venta.keys():
+        try:
+            precio_compra = total_precio[element]/total_cajones[element]
+            balance = precio_venta[element] - precio_compra
+            ganancia_total = balance * total_cajones[element]
+            informe.append((element, total_cajones[element], precio_compra, precio_venta[element], balance, ganancia_total))
+        except ZeroDivisionError:
+            pass
+    return informe
     
- 
+camion = leer_camion('../Data/camion.csv')
+precio_venta = leer_precio('../Data/precios.csv')
+informe = hacer_informe(camion, precio_venta)
+#print(tabulate(informe, headers=['Fruta', 'Cajones', 'Precio de compra', 'Precio de venta', 'Cambio', 'Ganancia neta']))
 
-#%%
+headers = ('Fruta', 'Cajones', 'Compra', 'Venta', 'Cambio', 'Ganancia neta')
 
+encabezado = ''
+for h in headers:
+    encabezado = encabezado + f'{h:^11s}' 
+print(encabezado)
+print('---------- ---------- ---------- ---------- ---------- ----------')
+for r in informe:
+    print('%10s %10d %10.2f %10.2f %10.2f %10.2f' % r) # solo funciona con lista de tuplas y no con lista de listas
 
-def precio_total(nombre_archivo):
-    ''' Computa el gasto que se hizo en cada fruta multiplicando los cajones por el costo de cada uno'''
-    camion = []
-    with open(nombre_archivo, 'rt') as f:
-        rows = csv.reader(f)
-        headers = next(rows)
-        for row in rows:
-            ncajones = int(row[1])
-            precio = float(row[2])
-            total = (row[0], ncajones, ncajones * precio)
-            camion.append(total)
-    return camion
-
-camion = precio_total('camion.csv')
-
-total_cajones = Counter()            
-for nombre, n_cajones, precio in camion:
-    total_cajones[nombre] += n_cajones
+# no conseguí incluir el simbolo $

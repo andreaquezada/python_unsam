@@ -72,4 +72,6 @@ def costo_camion(nombre_archivo):
             print(f'Aviso: hay datos faltantes en la fila {row[0]}')
     f.close()
     return costo
+costo = costo_camion('camion.csv')
+print(costo)
     
